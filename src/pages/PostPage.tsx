@@ -1,10 +1,15 @@
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PostCard from '../components/PostCard';
 import { posts } from '../datas/PostData';
 
 const PostPage = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

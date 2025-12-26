@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { posts } from '../datas/PostData';
@@ -7,6 +8,10 @@ import { posts } from '../datas/PostData';
 const PostDetailPage = () => {
   const { id } = useParams();
   const post = posts.find(p => p.id === Number(id));
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
 
   if (!post) {
     return (

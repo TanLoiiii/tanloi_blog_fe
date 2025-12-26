@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import PostPage from "./pages/PostPage";
 import PostDetailPage from "./pages/PostDetailPage";
+import Chatbox from "./components/Chatbox";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/posts" element={<PostPage />} />
         <Route path="/posts/:id" element={<PostDetailPage />} />
       </Routes>
+      <Chatbox />
     </BrowserRouter>
   );
 }
