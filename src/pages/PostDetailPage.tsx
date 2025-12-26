@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { posts } from '../datas/PostData';
@@ -12,10 +13,14 @@ const PostDetailPage = () => {
       <div className="bg-white min-h-screen flex flex-col">
         <Header />
         <div className="flex-grow flex items-center justify-center pt-20">
-          <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center"
+          >
             <h2 className="text-2xl font-bold mb-4">Bài viết không tồn tại</h2>
             <Link to="/posts" className="text-primary hover:underline">← Quay lại danh sách</Link>
-          </div>
+          </motion.div>
         </div>
         <Footer />
       </div>
@@ -23,30 +28,58 @@ const PostDetailPage = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white min-h-screen"
+    >
       <Header />
       <div className="pt-24 pb-16">
         {/* Header Image */}
-        <div className="w-full h-96 mb-12 overflow-hidden bg-gray-900">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full h-96 mb-12 overflow-hidden bg-gray-900"
+        >
           <img 
             src={post.imageUrl} 
             alt={post.title} 
             className="w-full h-full object-cover opacity-90"
           />
-        </div>
+        </motion.div>
 
         <div className="max-w-4xl mx-auto px-8">
-          <Link to="/posts" className="text-primary hover:underline mb-6 inline-flex items-center gap-2 font-medium">
-            <span>←</span> Quay lại danh sách
-          </Link>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            <Link to="/posts" className="text-primary hover:underline mb-6 inline-flex items-center gap-2 font-medium">
+              <span>←</span> Quay lại danh sách
+            </Link>
+          </motion.div>
           
           {/* Post Header */}
-          <div className="mb-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mb-10"
+          >
             <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map(tag => (
-                <span key={tag} className="text-sm font-medium px-3 py-1 bg-primary/10 text-primary rounded-full">
+              {post.tags.map((tag, idx) => (
+                <motion.span
+                  key={tag}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.4 + idx * 0.05 }}
+                  className="text-sm font-medium px-3 py-1 bg-primary/10 text-primary rounded-full"
+                >
                   {tag}
-                </span>
+                </motion.span>
               ))}
             </div>
             
@@ -65,16 +98,24 @@ const PostDetailPage = () => {
               <span className="text-gray-400">•</span>
               <span>{post.views.toLocaleString()} lượt xem</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Post Content */}
-          <div 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
             className="prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
           {/* Share Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
+            className="mt-12 pt-8 border-t border-gray-200"
+          >
             <p className="text-sm text-gray-600 mb-3">Chia sẻ bài viết:</p>
             <div className="flex gap-3">
               <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-sm">
@@ -87,11 +128,11 @@ const PostDetailPage = () => {
                 WhatsApp
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
       <Footer />
-    </div>
+    </motion.div>
   );
 };
 

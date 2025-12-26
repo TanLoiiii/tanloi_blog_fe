@@ -19,6 +19,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: 'Inter var', ui-sans-serif, system-ui, sans-serif;

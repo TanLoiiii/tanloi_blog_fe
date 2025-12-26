@@ -10,8 +10,6 @@ interface HeroSlide {
   alt?: string;
   title: string;
   description: string;
-  buttonText: string;
-  buttonLink: string;
 }
 
 const HeroSection = () => {
@@ -19,32 +17,26 @@ const HeroSection = () => {
     {
       id: 1,
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=600&fit=crop',
+      src: 'tap_the.jpg',
       alt: 'Network Engineer',
-      title: 'Xin chào, tôi là Sinh viên CNTT',
-      description: 'Chuyên ngành Mạng Máy Tính - Năm 3',
-      buttonText: 'Tìm hiểu thêm',
-      buttonLink: '#about'
+      title: 'Xin chào, Tôi là Tấn Lợi',
+      description: 'Chuyên ngành Mạng Máy Tính',
     },
     {
       id: 2,
       type: 'image',
       src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=600&fit=crop',
       alt: 'Network Skills',
-      title: 'Kỹ năng Mạng',
+      title: 'Kỹ năng chuyên môn',
       description: 'Các giao thức mạng, bảo mật và quản trị hệ thống',
-      buttonText: 'Xem kỹ năng',
-      buttonLink: '#skills'
     },
     {
       id: 3,
       type: 'image',
-      src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop',
+      src: '/certification_evidents/chungnhan_3.png',
       alt: 'My Projects',
-      title: 'Các Dự Án',
-      description: 'Thiết kế mạng, giám sát và cấu hình VPN',
-      buttonText: 'Xem dự án',
-      buttonLink: '#projects'
+      title: 'Hoạt động và cộng đồng',
+      description: 'Tham gia các dự án và hoạt động tình nguyện tăng cường kỹ năng, kinh nghiệm và kết nối.',
     },
   ];
 
@@ -149,6 +141,7 @@ const HeroSection = () => {
     <section
       className="relative h-screen w-full overflow-hidden"
       data-hero-section
+      id='hero'
     >
       {/* Top overlay gradient - darker */}
       <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/70 via-black/40 to-transparent z-10 pointer-events-none"></div>
@@ -172,28 +165,28 @@ const HeroSection = () => {
       {/* Animated Text Content */}
       {heroSlides.map((slide, index) => (
         <AnimatePresence key={slide.id}>
-          {selectedIndex === index && (
-            <div className="absolute inset-0 h-full flex items-center pointer-events-none mt-10">
+          {selectedIndex === index && index !== 2 && ( 
+            <div className={`absolute inset-0 h-full flex pointer-events-none ${
+              index === 0 
+                ? 'items-start justify-center pt-32' // Slide 1: giữa màn hình, phía trên
+                : 'items-end justify-start pb-20 pl-8 md:pl-20 -top-20' // Slide 2: góc trái dưới
+            }`}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
-                className="max-w-2xl px-8 pointer-events-auto relative z-20 text-white ml-0 md:ml-12"
+                className={`max-w-3xl px-8 py-6 pointer-events-auto relative z-20 text-white bg-black/20 rounded-2xl ${
+                  index === 0 ? 'text-center' : 'text-left'
+                }`}
               >
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                   <span className="text-primary">{slide.title.split(' ')[0]}</span>
                   {slide.title.substring(slide.title.indexOf(' '))}
                 </h1>
-                <p className="text-xl md:text-xl text-gray-200 mb-8">
+                <p className="text-xl md:text-xl text-gray-200 mb-2">
                   {slide.description}
                 </p>
-                <a
-                  href={slide.buttonLink}
-                  className="inline-block px-6 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-lg font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/50"
-                >
-                  {slide.buttonText}
-                </a>
               </motion.div>
             </div>
           )}

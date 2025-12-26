@@ -59,22 +59,22 @@ const Certification = () => {
     {
       id: 4,
       title: 'Chứng chỉ 4',
-      image: '/certification_evidents/chungnhan_4.png',
+      image: '/certification_evidents/chungnhan_3.png',
     },
     {
       id: 5,
       title: 'Chứng chỉ 5',
-      image: '/certification_evidents/chungnhan_5.png',
+      image: '/certification_evidents/chungnhan_3.png',
     },
     {
       id: 6,
       title: 'Chứng chỉ 6',
-      image: '/certification_evidents/chungnhan_6.png',
+      image: '/certification_evidents/chungnhan_3.png',
     },
     {
       id: 7,
       title: 'Chứng chỉ 7',
-      image: '/certification_evidents/chungnhan_7.png',
+      image: '/certification_evidents/chungnhan_3.png',
     },
   ];
 
@@ -206,9 +206,9 @@ const Certification = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex items-end">
                   <div className="p-2 md:p-2 text-white">
-                    <h3 className="text-lg md:text-2xl font-bold mb-1">
+                    {/* <h3 className="text-lg md:text-2xl font-bold mb-1">
                       {videoCert.title}
-                    </h3>
+                    </h3> */}
                    
                   </div>
                 </div>

@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,11 +16,36 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: 'Giới thiệu', link: '#about' },
-    { label: 'Kỹ năng', link: '#skills' },
-    { label: 'Dự án', link: '#projects' },
-    { label: 'Liên hệ', link: '#contact' },
+    { label: 'Giới thiệu', link: '#hero', isHash: true },
+    { label: 'Kỹ năng', link: '#skills', isHash: true },
+    { label: 'Chứng chỉ', link: '#certification', isHash: true },
+    { label: 'Bài viết', link: '/posts', isHash: false },
   ];
+
+  const handleNavClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
+    if (item.isHash) {
+      e.preventDefault();
+
+      // Nếu đang ở trang khác, về landing page trước
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.querySelector(item.link);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        const element = document.querySelector(item.link);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    } else {
+      e.preventDefault();
+      navigate(item.link);
+    }
+  };
 
   return (
     <header
@@ -30,7 +58,8 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto px-8 flex justify-between items-center">
         {/* Logo */}
         <h2
-          className={`text-2xl font-bold transition-colors duration-300 ${
+          onClick={() => navigate('/')}
+          className={`text-2xl font-bold transition-colors duration-300 cursor-pointer ${
             scrolled ? 'text-primary' : 'text-primary'
           }`}
         >
@@ -43,6 +72,7 @@ const Header = () => {
             <li key={item.label}>
               <a
                 href={item.link}
+                onClick={(e) => handleNavClick(e, item)}
                 className={`font-medium transition-colors duration-300 ${
                   scrolled
                     ? 'text-gray-700 hover:text-primary'
