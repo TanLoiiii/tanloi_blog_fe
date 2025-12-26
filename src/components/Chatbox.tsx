@@ -101,23 +101,24 @@ const Chatbox = () => {
 
   return (
     <>
-      {/* Chat Toggle Button */}
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full p-4 shadow-lg hover:bg-primary/90 transition-colors"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isOpen ? (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
+      {/* Chat Toggle Button - Hidden when chatbox is open */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            onClick={() => setIsOpen(true)}
+            className="fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full p-4 shadow-lg hover:bg-primary/90 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </motion.button>
         )}
-      </motion.button>
+      </AnimatePresence>
 
       {/* Chatbox Panel */}
       <AnimatePresence>
@@ -127,20 +128,33 @@ const Chatbox = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
+            className="fixed bottom-6 right-6 z-50 w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
           >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-primary to-blue-600 text-white p-4 flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                  <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+            {/* Header with Close Button */}
+            <div className="bg-gradient-to-r from-primary to-blue-600 text-white p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                    <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold">AI Assistant</h3>
+                  <p className="text-xs text-white/80">Tấn Lợi trong một </p>
+                </div>
+              </div>
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-1 hover:bg-white/20 rounded-full transition-colors"
+                aria-label="Close chat"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </div>
-              <div>
-                <h3 className="font-bold">AI Assistant</h3>
-                <p className="text-xs text-white/80">Tấn Lợi trong một </p>
-              </div>
+              </button>
             </div>
 
             {/* Messages */}

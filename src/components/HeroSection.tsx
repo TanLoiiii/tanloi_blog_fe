@@ -194,7 +194,7 @@ const HeroSection = () => {
       ))}
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-20 z-20 flex flex-col items-center">
+      <div className="hidden lg:flex absolute bottom-8 left-20 z-20 flex-col items-center">
         <span className="text-white text-sm mb-2">Scroll to navigate</span>
         <div className="h-16 w-1 bg-white/30 rounded-full overflow-hidden">
           <motion.div

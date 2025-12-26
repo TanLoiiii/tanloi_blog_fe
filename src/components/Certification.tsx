@@ -58,22 +58,22 @@ const Certification = () => {
     },
     {
       id: 4,
-      title: 'Chứng chỉ 4',
+      title: 'Chứng chỉ Cissco CCNA',
       image: '/certification_evidents/chungnhan_3.png',
     },
     {
       id: 5,
-      title: 'Chứng chỉ 5',
+      title: 'Chứng chỉ Cissco CCNP',
       image: '/certification_evidents/chungnhan_3.png',
     },
     {
       id: 6,
-      title: 'Chứng chỉ 6',
+      title: 'IT ward 2025',
       image: '/certification_evidents/chungnhan_3.png',
     },
     {
       id: 7,
-      title: 'Chứng chỉ 7',
+      title: 'Chứng chỉ CompTIA Network+',
       image: '/certification_evidents/chungnhan_3.png',
     },
   ];
