@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import ImageModal from './ImageModal';
 
 interface CertificationItem {
   id: number;
@@ -12,11 +14,11 @@ interface CertBoxProps {
   positionClasses: string;
 }
 
-const CertBox = ({ cert, positionClasses }: CertBoxProps) => (
+const CertBox = ({ cert, positionClasses, onClick }: CertBoxProps & { onClick: () => void }) => (
   <div
     className={`group absolute w-36 h-36 -rotate-45 overflow-hidden shadow-lg z-10 rounded-md ${positionClasses}`}
   >
-    <div className="block h-full w-full cursor-pointer">
+    <div className="block h-full w-full cursor-pointer" onClick={onClick}>
       <div className="absolute inset-0 rotate-45 scale-[1.5] overflow-hidden">
         <img
           src={cert.image}
@@ -37,9 +39,11 @@ const CertBox = ({ cert, positionClasses }: CertBoxProps) => (
 );
 
 const Certification = () => {
+  const [selectedImage, setSelectedImage] = useState<{ url: string; title: string } | null>(null);
+
   const certifications: CertificationItem[] = [
     {
-      id: 1,
+      id: 7,
       title: 'Hoạt động tình nguyện "Xuân ấm áp - Tết đông dạy"',
       image: '/certification_evidents/chungnhan_1.png',
       description: 'Hoạt động tình nguyện cộng đồng',
@@ -59,22 +63,22 @@ const Certification = () => {
     {
       id: 4,
       title: 'Chứng chỉ Cissco CCNA',
-      image: '/certification_evidents/chungnhan_3.png',
+      image: '/certification_evidents/chungnhan_4.png',
     },
     {
       id: 5,
       title: 'Chứng chỉ Cissco CCNP',
-      image: '/certification_evidents/chungnhan_3.png',
+      image: '/certification_evidents/chungnhan_5.png',
     },
     {
       id: 6,
       title: 'IT ward 2025',
-      image: '/certification_evidents/chungnhan_3.png',
+      image: '/certification_evidents/chungnhan_6.png',
     },
     {
-      id: 7,
+      id: 1,
       title: 'Chứng chỉ CompTIA Network+',
-      image: '/certification_evidents/chungnhan_3.png',
+      image: '/certification_evidents/chungnhan_7.png',
     },
   ];
 
@@ -126,6 +130,7 @@ const Certification = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             whileHover={{ y: -5 }}
+            onClick={() => setSelectedImage({ url: mainCert.image, title: mainCert.title })}
           >
             <div className="block h-full cursor-pointer">
               <div className="absolute inset-0">
@@ -156,6 +161,7 @@ const Certification = () => {
                       key={cert.id}
                       cert={cert}
                       positionClasses={layout.positionClasses}
+                      onClick={() => setSelectedImage({ url: cert.image, title: cert.title })}
                     />
                   );
                 })}
@@ -171,6 +177,7 @@ const Certification = () => {
                     transition={{ duration: 0.3, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     className="group relative aspect-square overflow-hidden rounded-lg shadow-md"
+                    onClick={() => setSelectedImage({ url: cert.image, title: cert.title })}
                   >
                     <div className="block h-full w-full cursor-pointer">
                       <img
@@ -198,7 +205,10 @@ const Certification = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <div className="block h-full cursor-pointer">
+              <div
+                className="block h-full cursor-pointer"
+                onClick={() => setSelectedImage({ url: videoCert.image, title: videoCert.title })}
+              >
                 <img
                   src={videoCert.image}
                   alt={videoCert.title}
@@ -209,7 +219,6 @@ const Certification = () => {
                     {/* <h3 className="text-lg md:text-2xl font-bold mb-1">
                       {videoCert.title}
                     </h3> */}
-                   
                   </div>
                 </div>
               </div>
@@ -217,6 +226,14 @@ const Certification = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Modal */}
+      <ImageModal
+        isOpen={selectedImage !== null}
+        onClose={() => setSelectedImage(null)}
+        imageUrl={selectedImage?.url || ''}
+        title={selectedImage?.title || ''}
+      />
     </section>
   );
 };

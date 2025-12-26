@@ -33,7 +33,7 @@ const HeroSection = () => {
     {
       id: 3,
       type: 'image',
-      src: '/certification_evidents/chungnhan_3.png',
+      src: '/certification_evidents/chungnhan_7.png',
       alt: 'My Projects',
       title: 'Hoạt động và cộng đồng',
       description: 'Tham gia các dự án và hoạt động tình nguyện tăng cường kỹ năng, kinh nghiệm và kết nối.',
